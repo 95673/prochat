@@ -2,227 +2,167 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>ProChat | D4n@s</title>
-  <script>
-  function fixHeight() {
-    var el = document.getElementById("app-container");
-    if (el) {
-      el.style.height = window.innerHeight + "px";
-      el.style.maxHeight = window.innerHeight + "px";
-    }
-  }
-  window.addEventListener("resize", fixHeight);
-  window.addEventListener("load", fixHeight);
-  document.addEventListener("DOMContentLoaded", fixHeight);
-</script>
   <style>
     :root {
       --primary: #075e54;
       --secondary: #128c7e;
       --accent: #25d366;
       --bg-light: #efe7de;
+      /* Variável dinâmica para altura mobile */
+      --vh: 1vh;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     html, body {
       height: 100%;
+      height: calc(var(--vh, 1vh) * 100);
       font-family: 'Segoe UI', Roboto, Arial, sans-serif;
       background: #d1d7db;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* LOGIN */
+    /* TELA DE LOGIN */
     #tela-login {
-      position: fixed; inset: 0;
+      position: fixed; 
+      inset: 0;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex; align-items: center; justify-content: center;
-      z-index: 2000; transition: all 0.5s ease;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      z-index: 2000; 
+      transition: all 0.5s ease;
     }
     .card-login {
-      background: white; padding: 35px;
-      border-radius: 24px; width: 90%; max-width: 360px;
-      text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      animation: slideUp 0.6s ease;
+      background: white; 
+      padding: 30px;
+      border-radius: 24px; 
+      width: 90%; 
+      max-width: 360px;
+      text-align: center; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
-    @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
+
     #preview-foto {
       width: 100px; height: 100px; border-radius: 50%;
       cursor: pointer; border: 4px solid var(--accent);
-      box-shadow: 0 0 10px 3px var(--accent);
       object-fit: cover; transition: transform 0.3s;
     }
-    #preview-foto:active { transform: scale(0.9); }
-    .card-login h3 { color: var(--primary); margin: 15px 0; }
-    #input-nome {
-      width: 100%; padding: 12px; margin: 10px 0;
-      border: 1px solid #ddd; border-radius: 8px; font-size: 15px;
+
+    #input-nome, #input-sala, #select-estado {
+      width: 100%; padding: 12px; margin: 8px 0;
+      border: 1px solid #ddd; border-radius: 8px;
+      font-size: 15px; outline: none;
     }
-    #select-estado {
-      width: 100%; padding: 12px; margin-bottom: 15px;
-      border-radius: 8px; border: 1px solid #ddd; font-size: 15px;
-    }
+
     #btn-entrar {
       width: 100%; padding: 14px;
       background: var(--accent); border: none;
       border-radius: 8px; color: white;
       font-weight: bold; font-size: 16px; cursor: pointer;
+      margin-top: 10px;
     }
 
-    /* APP */
+    /* CONTAINER PRINCIPAL DO APP */
     #app-container {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  margin: 0 auto;
-  background: var(--bg-light);
-  overflow: hidden;
-}
-    header {
-      background: rgba(7,94,84,0.97);
-      color: white; padding: 12px 18px;
-      display: flex; align-items: center; gap: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      flex-shrink: 0;
-    }
-    .avatar-wrapper { position: relative; }
-    #user-avatar {
-      width: 42px; height: 42px;
-      border-radius: 50%; object-fit: cover;
-    }
-    .status-dot {
-      width: 12px; height: 12px;
-      border: 2px solid white; border-radius: 50%;
-      position: absolute; bottom: 2px; right: 2px;
-      background: var(--accent);
-    }
-
-    /* BARRA DE PESQUISA */
-    #barra-pesquisa {
-      background: #075e54;
-      padding: 8px 15px;
       display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    #input-pesquisa {
-      flex: 1; padding: 8px 15px;
-      border-radius: 20px; border: none;
-      outline: none; font-size: 14px;
-    }
-    #btn-pesquisa {
-      background: var(--accent);
-      border: none; border-radius: 50%;
-      width: 38px; height: 38px;
-      color: white; font-size: 18px;
-      cursor: pointer; display: flex;
-      align-items: center; justify-content: center;
-      flex-shrink: 0;
+      flex-direction: column;
+      width: 100%;
+      max-width: 500px;
+      height: 100%;
+      margin: 0 auto;
+      background: var(--bg-light);
+      position: relative;
     }
 
-    /* MENSAGENS */
+    header {
+      background: var(--primary);
+      color: white; padding: 10px 15px;
+      display: flex; align-items: center; gap: 12px;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+
+    #user-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .status-dot {
+      width: 12px; height: 12px; border: 2px solid white;
+      border-radius: 50%; position: absolute; bottom: 2px; right: 2px;
+      background: var(--accent);
+    }
+
+    /* ÁREA DE MENSAGENS */
     #mensagens {
-      flex: 1; overflow-y: auto; padding: 15px;
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
       background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-      display: flex; flex-direction: column; gap: 6px;
-      scroll-behavior: smooth;
+      display: flex; flex-direction: column; gap: 8px;
       -webkit-overflow-scrolling: touch;
     }
+
     .msg {
       max-width: 85%; padding: 8px 12px;
       border-radius: 12px; font-size: 15px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-      animation: popIn 0.3s ease-out;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
       word-wrap: break-word;
-    }
-    @keyframes popIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      position: relative;
     }
     .sent { align-self: flex-end; background: #e7ffdb; border-top-right-radius: 2px; }
     .received { align-self: flex-start; background: white; border-top-left-radius: 2px; }
-    .msg-info {
-      font-size: 10px; color: #888;
-      display: flex; justify-content: flex-end;
-      align-items: center; gap: 3px; margin-top: 4px;
-    }
-    .tick { font-size: 13px; color: #888; }
-    .tick.entregue { color: #4fc3f7; }
-    .tick.lido { color: var(--accent); }
 
-    #a-escrever {
-      padding: 5px 20px; font-size: 13px;
-      color: var(--secondary); font-style: italic;
-      min-height: 24px; flex-shrink: 0;
-    }
+    .msg-info { font-size: 10px; color: #888; display: flex; justify-content: flex-end; gap: 3px; margin-top: 4px; }
+    .tick.lido { color: #4fc3f7; }
 
-    #area-video {
-      display: none; background: #000;
-      height: 180px; padding: 10px;
-      justify-content: center; flex-shrink: 0;
-    }
-    #v-local { height: 100%; border-radius: 12px; border: 2px solid var(--accent); }
+    #a-escrever { padding: 5px 20px; font-size: 12px; color: var(--secondary); min-height: 20px; }
 
+    /* RODAPÉ FIXO */
     footer {
-      background: #f0f2f5; padding: 10px 15px;
-      display: flex; align-items: center; gap: 8px;
+      background: #f0f2f5;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       flex-shrink: 0;
-      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      padding-bottom: env(safe-area-inset-bottom, 10px);
     }
-    .input-wrapper {
-      flex: 1; background: white;
-      border-radius: 25px; padding: 5px 15px;
-      display: flex; align-items: center;
-    }
-    #campo-texto {
-      flex: 1; border: none; padding: 10px 0;
-      outline: none; font-size: 16px; background: transparent;
-    }
+
+    .input-wrapper { flex: 1; background: white; border-radius: 20px; padding: 5px 15px; }
+    #campo-texto { width: 100%; border: none; padding: 8px 0; outline: none; font-size: 16px; }
+
     .btn-action {
-      width: 45px; height: 45px; border-radius: 50%;
-      border: none; background: var(--secondary);
-      color: white; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; transition: 0.2s; flex-shrink: 0;
-    }
-    .btn-action:active { transform: scale(0.85); }
-
-    .signature-watermark {
-      text-align: center; font-size: 11px;
-      color: rgba(0,0,0,0.08); font-weight: bold;
-      pointer-events: none; letter-spacing: 3px;
-      padding: 2px; flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 50%; border: none;
+      background: var(--secondary); color: white; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
 
-    .menu-item {
-      padding: 14px 20px; font-size: 15px;
-      cursor: pointer; border-bottom: 1px solid #f0f0f0;
-      transition: background 0.2s;
+    /* MENU DE CONTEXTO */
+    #menu-opcoes {
+      display: none; position: absolute; background: white;
+      border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 10000; min-width: 140px;
     }
-    .menu-item:hover { background: #f5f5f5; }
-    .menu-item:last-child { border-bottom: none; }
-    #overlay-menu {
-      display: none; position: fixed;
-      inset: 0; z-index: 9998;
-    }
+    .menu-item { padding: 12px; cursor: pointer; border-bottom: 1px solid #eee; }
+    #overlay-menu { display: none; position: fixed; inset: 0; z-index: 9999; }
+    
+    .signature-watermark { text-align: center; font-size: 10px; color: #bbb; padding: 2px; }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN -->
+  <!-- TELA DE LOGIN -->
   <div id="tela-login">
     <div class="card-login">
-      <div class="avatar-wrapper" style="display:inline-block">
+      <div class="avatar-wrapper" style="position:relative; display:inline-block">
         <img id="preview-foto" src="https://ui-avatars.com/api/?name=?&background=075e54&color=fff&size=150">
+        <input type="file" id="input-foto" hidden accept="image/*">
       </div>
-      <input type="file" id="input-foto" hidden accept="image/*">
       <h3>ProChat</h3>
       <input type="text" id="input-nome" placeholder="O teu nome..." maxlength="15">
+      <input type="text" id="input-sala" placeholder="Nome da sala (ex: sala1)..." maxlength="20">
       <select id="select-estado">
         <option value="Online">🟢 Online</option>
         <option value="Ocupado">🟡 Ocupado</option>
@@ -232,41 +172,30 @@
     </div>
   </div>
 
-  <!-- APP -->
+  <!-- APP CONTAINER -->
   <div id="app-container">
     <header>
-      <div class="avatar-wrapper">
+      <div style="position:relative">
         <img src="" id="user-avatar">
         <div id="status-indicador" class="status-dot"></div>
       </div>
       <div style="flex:1">
-        <div id="display-nome" style="font-weight:600; font-size:17px">ProChat</div>
-        <div id="display-estado" style="font-size:12px; opacity:0.9">Online</div>
+        <div id="display-nome" style="font-weight:600">Nome</div>
+        <div id="display-estado" style="font-size:12px">Online</div>
       </div>
       <button class="btn-action" style="background:none" onclick="ativarVideo()">🎥</button>
-      <button class="btn-action" style="background:none" onclick="ativarVoz()">📞</button>
     </header>
 
-    <!-- BARRA DE PESQUISA -->
-    <div id="barra-pesquisa">
-      <input type="text" id="input-pesquisa" placeholder="🔍 Procurar amigo...">
-      <button id="btn-pesquisa" onclick="iniciarConversa()">➤</button>
+    <div id="area-video" style="display:none; background:black; height:150px; flex-shrink:0;">
+      <video id="v-local" autoplay muted playsinline style="height:100%; margin:0 auto;"></video>
     </div>
 
-    <div id="area-video">
-      <video id="v-local" autoplay muted playsinline></video>
-    </div>
-
-    <div id="mensagens">
-      <div style="text-align:center; color:#999; font-size:13px; margin-top:20px">
-        🔍 Procura um amigo para começar a conversar!
-      </div>
-    </div>
+    <div id="mensagens"></div>
     <div id="a-escrever"></div>
     <div class="signature-watermark">D4n@s</div>
 
     <footer>
-      <button class="btn-action" style="background:#e3e6eb; color:#54656f; font-size:24px; font-weight:bold">+</button>
+      <button class="btn-action" style="background:#ddd; color:#333">+</button>
       <div class="input-wrapper">
         <input type="text" id="campo-texto" placeholder="Mensagem">
       </div>
@@ -275,9 +204,8 @@
   </div>
 
   <!-- MENU -->
-  <div id="menu-opcoes" style="display:none; position:fixed; background:white; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.2); z-index:9999; overflow:hidden; min-width:180px;">
+  <div id="menu-opcoes">
     <div class="menu-item" id="opcao-copiar">📋 Copiar</div>
-    <div class="menu-item" id="opcao-reencaminhar">↪️ Reencaminhar</div>
     <div class="menu-item" id="opcao-apagar" style="color:red">🗑️ Apagar</div>
   </div>
   <div id="overlay-menu"></div>
@@ -286,22 +214,25 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
-    firebase.initializeApp({
-      databaseURL: "https://meu-chat-b887c-default-rtdb.firebaseio.com/"
-    });
+    // CORREÇÃO DE ALTURA PARA MOBILE
+    function updateHeight() {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    window.addEventListener('resize', updateHeight);
+    window.addEventListener('load', updateHeight);
+
+    // FIREBASE
+    firebase.initializeApp({ databaseURL: "https://meu-chat-b887c-default-rtdb.firebaseio.com/" });
     const db = firebase.database();
 
     const myId = Math.random().toString(36).substring(7);
     let myName = "";
-    let myPhoto = "https://ui-avatars.com/api/?name=?&background=075e54&color=fff&size=150";
-    let typingTimer;
-    let salaActual = null;
-    let salaListener = null;
+    let myRoom = "geral";
+    let myPhoto = "https://ui-avatars.com/api/?name=?&background=075e54&color=fff";
 
-    // Foto
-    document.getElementById("preview-foto").onclick = () =>
-      document.getElementById("input-foto").click();
-
+    // FOTO PREVIEW
+    document.getElementById("preview-foto").onclick = () => document.getElementById("input-foto").click();
     document.getElementById("input-foto").onchange = (e) => {
       const reader = new FileReader();
       reader.onload = (ev) => {
@@ -311,213 +242,82 @@
       reader.readAsDataURL(e.target.files[0]);
     };
 
-    // Estado
-    document.getElementById("select-estado").onchange = function() {
-      const cores = { Online: "#25d366", Ocupado: "#f0c000", Ausente: "#e74c3c" };
-      const foto = document.getElementById("preview-foto");
-      foto.style.borderColor = cores[this.value];
-      foto.style.boxShadow = `0 0 10px 3px ${cores[this.value]}`;
-    };
-
-    // Login
+    // LOGIN
     document.getElementById("btn-entrar").onclick = () => {
       myName = document.getElementById("input-nome").value.trim();
-      if (!myName) return alert("Escreve o teu nome!");
-      const estado = document.getElementById("select-estado").value;
-      const cores = { Online: "#25d366", Ocupado: "#f0c000", Ausente: "#e74c3c" };
+      myRoom = document.getElementById("input-sala").value.trim() || "geral";
+      if (!myName) return alert("Digite seu nome!");
+
       document.getElementById("display-nome").innerText = myName;
-      document.getElementById("display-estado").innerText = estado;
-      document.getElementById("status-indicador").style.background = cores[estado];
       document.getElementById("user-avatar").src = myPhoto;
-
-      // Registar utilizador online
-      db.ref("utilizadores/" + myName).set({
-        nome: myName, estado: estado, online: true
-      });
-
+      
       const tela = document.getElementById("tela-login");
       tela.style.opacity = "0";
-      tela.style.transform = "scale(1.1)";
-      setTimeout(() => tela.style.display = "none", 500);
+      setTimeout(() => {
+          tela.style.display = "none";
+          ouvirMensagens();
+      }, 500);
     };
 
-    // Iniciar conversa com amigo
-    function iniciarConversa() {
-      const amigo = document.getElementById("input-pesquisa").value.trim();
-      if (!amigo) { alert("Escreve o nome do amigo!"); return; }
-      if (amigo === myName) { alert("Não podes conversar contigo mesmo! 😄"); return; }
-
-      const nomes = [myName, amigo].sort();
-      salaActual = "sala-" + nomes[0] + "-" + nomes[1];
-
-      document.getElementById("display-nome").innerText = "💬 " + amigo;
-      document.getElementById("input-pesquisa").value = "";
-      document.getElementById("mensagens").innerHTML = "";
-
-      // Remover listener anterior
-      if (salaListener) {
-        db.ref(salaListener).off();
-      }
-      salaListener = salaActual;
-
-      // Carregar mensagens da sala
-      db.ref(salaActual).limitToLast(50).on("child_added", (snap) => {
-        carregarMensagem(snap);
-      });
-
-      db.ref(salaActual).on("child_removed", (snap) => {
-        const el = document.getElementById("msg-" + snap.key);
-        if (el) el.remove();
-      });
-    }
-
-    // Carregar mensagem
-    function carregarMensagem(snap) {
-      const data = snap.val();
-      const area = document.getElementById("mensagens");
-      const isMe = data.senderId === myId;
-
-      if (!isMe) db.ref(salaActual + "/" + snap.key).update({ lido: true });
-
-      const div = document.createElement("div");
-      div.className = "msg " + (isMe ? "sent" : "received");
-      div.id = "msg-" + snap.key;
-
-      let ticks = "";
-      if (isMe) {
-        if (data.lido) ticks = `<span class="tick lido">✓✓</span>`;
-        else if (data.entregue) ticks = `<span class="tick entregue">✓✓</span>`;
-        else ticks = `<span class="tick">✓</span>`;
-      }
-
-      div.innerHTML = `
-        <small style="display:block; font-size:10px; font-weight:bold; color:var(--secondary); margin-bottom:2px">
-          ${isMe ? "Você" : data.nome}
-        </small>
-        ${data.texto}
-        <span class="msg-info">
-          ${new Date(data.timestamp).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}
-          ${ticks}
-        </span>
-      `;
-
-      let pressTimer;
-      const iniciar = (e) => {
-        pressTimer = setTimeout(() => abrirMenu(e, div, snap, isMe), 600);
-      };
-      const cancelar = () => clearTimeout(pressTimer);
-      div.addEventListener("mousedown", iniciar);
-      div.addEventListener("mouseup", cancelar);
-      div.addEventListener("touchstart", iniciar);
-      div.addEventListener("touchend", cancelar);
-      div.addEventListener("touchmove", cancelar);
-
-      area.appendChild(div);
-      area.scrollTop = area.scrollHeight;
-    }
-
-    // Enviar
+    // ENVIAR MENSAGEM
     function enviar() {
-      if (!salaActual) { alert("Procura um amigo primeiro!"); return; }
       const input = document.getElementById("campo-texto");
       const texto = input.value.trim();
       if (!texto) return;
-      db.ref(salaActual).push({
-        senderId: myId, nome: myName,
-        texto: texto, timestamp: Date.now(),
-        entregue: true, lido: false
+
+      db.ref("salas/" + myRoom + "/mensagens").push({
+        senderId: myId, nome: myName, texto: texto, timestamp: Date.now()
       });
-      db.ref("digitando/" + myId).remove();
       input.value = "";
+      db.ref("digitando/" + myRoom + "/" + myId).remove();
     }
 
     document.getElementById("btn-enviar").onclick = enviar;
-    document.getElementById("campo-texto").onkeypress = (e) => {
-      if (e.key === "Enter") enviar();
-    };
+    document.getElementById("campo-texto").onkeypress = (e) => { if(e.key === "Enter") enviar(); };
 
-    // A escrever
+    // DIGITANDO
+    let typingTimer;
     document.getElementById("campo-texto").oninput = () => {
-      if (!salaActual) return;
-      db.ref("digitando/" + myId).set({ nome: myName });
+      db.ref("digitando/" + myRoom + "/" + myId).set({ nome: myName });
       clearTimeout(typingTimer);
-      typingTimer = setTimeout(() => {
-        db.ref("digitando/" + myId).remove();
-      }, 2000);
+      typingTimer = setTimeout(() => db.ref("digitando/" + myRoom + "/" + myId).remove(), 2000);
     };
 
-    db.ref("digitando").on("value", (snap) => {
+    db.ref("digitando/" + myRoom).on("value", (snap) => {
       const dados = snap.val();
       const indicador = document.getElementById("a-escrever");
       if (!dados) { indicador.innerText = ""; return; }
-      const outros = Object.values(dados)
-        .filter(d => d.nome !== myName).map(d => d.nome);
-      if (outros.length === 0) indicador.innerText = "";
-      else if (outros.length === 1) indicador.innerText = outros[0] + " está a escrever...";
-      else indicador.innerText = "Vários utilizadores estão a escrever...";
+      const outros = Object.values(dados).filter(d => d.nome !== myName).map(d => d.nome);
+      indicador.innerText = outros.length > 0 ? outros.join(", ") + " está escrevendo..." : "";
     });
 
-    // Menu
-    let msgSelecionada = null;
-    let textoSelecionado = "";
-    const menu = document.getElementById("menu-opcoes");
-    const overlay = document.getElementById("overlay-menu");
+    // LISTAR MENSAGENS
+    function ouvirMensagens() {
+      db.ref("salas/" + myRoom + "/mensagens").limitToLast(50).on("child_added", (snap) => {
+        const data = snap.val();
+        const area = document.getElementById("mensagens");
+        const isMe = data.senderId === myId;
 
-    function abrirMenu(e, div, snap, isMe) {
-      msgSelecionada = { snap, div, isMe };
-      textoSelecionado = snap.val().texto;
-      document.getElementById("opcao-apagar").style.display = isMe ? "block" : "none";
-      const x = Math.min(e.clientX || e.touches[0].clientX, window.innerWidth - 200);
-      const y = Math.min(e.clientY || e.touches[0].clientY, window.innerHeight - 150);
-      menu.style.left = x + "px";
-      menu.style.top = y + "px";
-      menu.style.display = "block";
-      overlay.style.display = "block";
+        const div = document.createElement("div");
+        div.className = "msg " + (isMe ? "sent" : "received");
+        div.innerHTML = `
+          <small style="display:block; font-weight:bold; font-size:10px; color:#128c7e">${isMe ? "Você" : data.nome}</small>
+          ${data.texto}
+          <div class="msg-info">${new Date(data.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>
+        `;
+        area.appendChild(div);
+        area.scrollTop = area.scrollHeight;
+      });
     }
 
-    function fecharMenu() {
-      menu.style.display = "none";
-      overlay.style.display = "none";
-      msgSelecionada = null;
-    }
-
-    overlay.onclick = fecharMenu;
-
-    document.getElementById("opcao-copiar").onclick = () => {
-      navigator.clipboard.writeText(textoSelecionado)
-        .then(() => alert("✅ Mensagem copiada!"))
-        .catch(() => alert("Erro ao copiar"));
-      fecharMenu();
-    };
-
-    document.getElementById("opcao-reencaminhar").onclick = () => {
-      document.getElementById("campo-texto").value = textoSelecionado;
-      document.getElementById("campo-texto").focus();
-      fecharMenu();
-    };
-
-    document.getElementById("opcao-apagar").onclick = () => {
-      if (confirm("Apagar esta mensagem para todos?")) {
-        db.ref(salaActual + "/" + msgSelecionada.snap.key).remove();
-      }
-      fecharMenu();
-    };
-
-    // Vídeo
     function ativarVideo() {
-      const area = document.getElementById("area-video");
-      area.style.display = area.style.display === "none" ? "flex" : "none";
-      if (area.style.display === "flex") {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-          .then(s => document.getElementById("v-local").srcObject = s)
-          .catch(err => alert("Erro: " + err.message));
+      const v = document.getElementById("area-video");
+      v.style.display = v.style.display === "none" ? "block" : "none";
+      if(v.style.display === "block") {
+        navigator.mediaDevices.getUserMedia({video: true}).then(s => {
+          document.getElementById("v-local").srcObject = s;
+        });
       }
-    }
-
-    function ativarVoz() {
-      navigator.mediaDevices.getUserMedia({ video: false, audio: true })
-        .then(() => alert("🎙️ Microfone activado!"))
-        .catch(err => alert("Erro: " + err.message));
     }
   </script>
 </body>
