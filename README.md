@@ -187,6 +187,60 @@
   inset: 0;
   z-index: 9998;
 }
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--bg-light);
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  background: #d1d7db;
+  overflow: hidden;
+}
+
+#mensagens {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+footer {
+  background: #f0f2f5;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
   </style>
 </head>
 <body>
