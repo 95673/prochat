@@ -5,13 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ProChat | D4n@s</title>
   <script>
-    function fixHeight() {
-      var el = document.getElementById("app-container");
-      if (el) el.style.height = window.innerHeight + "px";
+  function fixHeight() {
+    var el = document.getElementById("app-container");
+    if (el) {
+      el.style.height = window.innerHeight + "px";
+      el.style.maxHeight = window.innerHeight + "px";
     }
-    window.addEventListener("resize", fixHeight);
-    window.addEventListener("load", fixHeight);
-  </script>
+  }
+  window.addEventListener("resize", fixHeight);
+  window.addEventListener("load", fixHeight);
+  document.addEventListener("DOMContentLoaded", fixHeight);
+</script>
   <style>
     :root {
       --primary: #075e54;
