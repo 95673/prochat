@@ -73,7 +73,7 @@
       flex-direction: column;
       width: 100%;
       max-width: 500px;
-      height: 100%;
+      height: 90vh%;
       margin: 0 auto;
       background: var(--bg-light);
       position: relative;
