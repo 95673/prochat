@@ -174,6 +174,7 @@ input[type="text"] {
     <button class="btn btn-video" style="width:100%;" onclick="entrar()">ENTRAR</button>
   </div>
 </div><div id="menu">
+  <div class="item" onclick="acao('share')">📤 Partilhar</div>
   <div class="item" onclick="acao('copy')">📄 Copiar</div>
   <div class="item" onclick="acao('forward')">↪️ Reencaminhar</div>
   <div class="item" onclick="acao('paste')">📋 Colar</div>
@@ -222,6 +223,7 @@ function createMessage(text, mine = false) {
   div.innerText = text;
 
   div.onclick = (e) => {
+    e.stopPropagation();
     selectedText = text;
     selectedElement = div;
 
@@ -249,6 +251,14 @@ async function acao(tipo) {
   if (tipo === "paste") {
     const t = await navigator.clipboard.readText();
     input.value += t;
+  }
+
+  if (tipo === "share") {
+    if (navigator.share) {
+      await navigator.share({ text: selectedText });
+    } else {
+      alert("Partilha não suportada neste dispositivo");
+    }
   }
 
   if (tipo === "delete") {
