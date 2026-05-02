@@ -17,9 +17,6 @@
   margin: 0; height: 100%;
   font-family: 'Segoe UI', Roboto, Arial, sans-serif;
   background: #d1d7db;
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
 }
 
     /* LOGIN */
@@ -67,11 +64,11 @@
     /* APP */
     #app-container {
   display: flex; flex-direction: column;
-  height: 100vh; max-width: 500px;
-  margin: 0 auto; background: var(--bg-light);
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  width: 100%;
+  height: 100dvh;
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--bg-light);
+  overflow: hidden;
 }
     header {
       background: rgba(7,94,84,0.97);
