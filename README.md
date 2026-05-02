@@ -70,13 +70,18 @@
     }
 
     #app-container {
-  position: fixed;
-  top: 0; left: 0; right: 0;
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: 500px;
   margin: 0 auto;
   background: var(--bg-light);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
 
     header {
@@ -153,10 +158,16 @@
     }
 
     footer {
-      background: #f0f2f5; padding: 10px 15px;
-      display: flex; align-items: center; gap: 8px;
-      flex-shrink: 0;
-    }
+  background: #f0f2f5;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  padding-bottom: env(safe-area-inset-bottom, 10px);
+}
     .input-wrapper {
       flex: 1; background: white;
       border-radius: 25px; padding: 5px 15px;
