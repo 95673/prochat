@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <script>
-  // Corrigir altura no telemóvel
-  function fixHeight() {
-    document.getElementById("app-container").style.height = window.innerHeight + "px";
-  }
-  window.addEventListener("resize", fixHeight);
-  window.addEventListener("load", fixHeight);
-</script>
   <title>ProChat | D4n@s</title>
+  <script>
+    function fixHeight() {
+      var el = document.getElementById("app-container");
+      if (el) el.style.height = window.innerHeight + "px";
+    }
+    window.addEventListener("resize", fixHeight);
+    window.addEventListener("load", fixHeight);
+  </script>
   <style>
     :root {
       --primary: #075e54;
@@ -20,7 +20,6 @@
       --bg-light: #efe7de;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html, body {
       height: 100%;
       font-family: 'Segoe UI', Roboto, Arial, sans-serif;
@@ -28,6 +27,7 @@
       overflow: hidden;
     }
 
+    /* LOGIN */
     #tela-login {
       position: fixed; inset: 0;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -54,13 +54,11 @@
     .card-login h3 { color: var(--primary); margin: 15px 0; }
     #input-nome {
       width: 100%; padding: 12px; margin: 10px 0;
-      border: 1px solid #ddd; border-radius: 8px;
-      font-size: 15px;
+      border: 1px solid #ddd; border-radius: 8px; font-size: 15px;
     }
     #select-estado {
       width: 100%; padding: 12px; margin-bottom: 15px;
-      border-radius: 8px; border: 1px solid #ddd;
-      font-size: 15px;
+      border-radius: 8px; border: 1px solid #ddd; font-size: 15px;
     }
     #btn-entrar {
       width: 100%; padding: 14px;
@@ -69,21 +67,14 @@
       font-weight: bold; font-size: 16px; cursor: pointer;
     }
 
+    /* APP */
     #app-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  background: var(--bg-light);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-}
-
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex; flex-direction: column;
+      max-width: 500px; margin: auto;
+      background: var(--bg-light);
+    }
     header {
       background: rgba(7,94,84,0.97);
       color: white; padding: 12px 18px;
@@ -103,16 +94,38 @@
       background: var(--accent);
     }
 
+    /* BARRA DE PESQUISA */
+    #barra-pesquisa {
+      background: #075e54;
+      padding: 8px 15px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    #input-pesquisa {
+      flex: 1; padding: 8px 15px;
+      border-radius: 20px; border: none;
+      outline: none; font-size: 14px;
+    }
+    #btn-pesquisa {
+      background: var(--accent);
+      border: none; border-radius: 50%;
+      width: 38px; height: 38px;
+      color: white; font-size: 18px;
+      cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* MENSAGENS */
     #mensagens {
-      flex: 1;
-      overflow-y: auto;
-      padding: 15px;
+      flex: 1; overflow-y: auto; padding: 15px;
       background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
       display: flex; flex-direction: column; gap: 6px;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
     }
-
     .msg {
       max-width: 85%; padding: 8px 12px;
       border-radius: 12px; font-size: 15px;
@@ -124,14 +137,8 @@
       from { transform: scale(0.8); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-    .sent {
-      align-self: flex-end; background: #e7ffdb;
-      border-top-right-radius: 2px;
-    }
-    .received {
-      align-self: flex-start; background: white;
-      border-top-left-radius: 2px;
-    }
+    .sent { align-self: flex-end; background: #e7ffdb; border-top-right-radius: 2px; }
+    .received { align-self: flex-start; background: white; border-top-left-radius: 2px; }
     .msg-info {
       font-size: 10px; color: #888;
       display: flex; justify-content: flex-end;
@@ -152,22 +159,14 @@
       height: 180px; padding: 10px;
       justify-content: center; flex-shrink: 0;
     }
-    #v-local {
-      height: 100%; border-radius: 12px;
-      border: 2px solid var(--accent);
-    }
+    #v-local { height: 100%; border-radius: 12px; border: 2px solid var(--accent); }
 
     footer {
-  background: #f0f2f5;
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 10;
-  padding-bottom: env(safe-area-inset-bottom, 10px);
-}
+      background: #f0f2f5; padding: 10px 15px;
+      display: flex; align-items: center; gap: 8px;
+      flex-shrink: 0;
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
     .input-wrapper {
       flex: 1; background: white;
       border-radius: 25px; padding: 5px 15px;
@@ -212,12 +211,11 @@
   <div id="tela-login">
     <div class="card-login">
       <div class="avatar-wrapper" style="display:inline-block">
-        <img id="preview-foto" src="https://ui-avatars.com/api/?name=?&background=075e54&color=fff&size=150" title="Clique para adicionar foto">
+        <img id="preview-foto" src="https://ui-avatars.com/api/?name=?&background=075e54&color=fff&size=150">
       </div>
       <input type="file" id="input-foto" hidden accept="image/*">
       <h3>ProChat</h3>
       <input type="text" id="input-nome" placeholder="O teu nome..." maxlength="15">
-<input type="text" id="input-sala" placeholder="Nome da sala... ex: sala-dino" maxlength="20" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:8px; font-size:15px;">
       <select id="select-estado">
         <option value="Online">🟢 Online</option>
         <option value="Ocupado">🟡 Ocupado</option>
@@ -235,18 +233,28 @@
         <div id="status-indicador" class="status-dot"></div>
       </div>
       <div style="flex:1">
-        <div id="display-nome" style="font-weight:600; font-size:17px">Nome</div>
+        <div id="display-nome" style="font-weight:600; font-size:17px">ProChat</div>
         <div id="display-estado" style="font-size:12px; opacity:0.9">Online</div>
       </div>
       <button class="btn-action" style="background:none" onclick="ativarVideo()">🎥</button>
       <button class="btn-action" style="background:none" onclick="ativarVoz()">📞</button>
     </header>
 
+    <!-- BARRA DE PESQUISA -->
+    <div id="barra-pesquisa">
+      <input type="text" id="input-pesquisa" placeholder="🔍 Procurar amigo...">
+      <button id="btn-pesquisa" onclick="iniciarConversa()">➤</button>
+    </div>
+
     <div id="area-video">
       <video id="v-local" autoplay muted playsinline></video>
     </div>
 
-    <div id="mensagens"></div>
+    <div id="mensagens">
+      <div style="text-align:center; color:#999; font-size:13px; margin-top:20px">
+        🔍 Procura um amigo para começar a conversar!
+      </div>
+    </div>
     <div id="a-escrever"></div>
     <div class="signature-watermark">D4n@s</div>
 
@@ -280,7 +288,10 @@
     let myName = "";
     let myPhoto = "https://ui-avatars.com/api/?name=?&background=075e54&color=fff&size=150";
     let typingTimer;
+    let salaActual = null;
+    let salaListener = null;
 
+    // Foto
     document.getElementById("preview-foto").onclick = () =>
       document.getElementById("input-foto").click();
 
@@ -293,6 +304,7 @@
       reader.readAsDataURL(e.target.files[0]);
     };
 
+    // Estado
     document.getElementById("select-estado").onchange = function() {
       const cores = { Online: "#25d366", Ocupado: "#f0c000", Ausente: "#e74c3c" };
       const foto = document.getElementById("preview-foto");
@@ -300,6 +312,7 @@
       foto.style.boxShadow = `0 0 10px 3px ${cores[this.value]}`;
     };
 
+    // Login
     document.getElementById("btn-entrar").onclick = () => {
       myName = document.getElementById("input-nome").value.trim();
       if (!myName) return alert("Escreve o teu nome!");
@@ -309,17 +322,100 @@
       document.getElementById("display-estado").innerText = estado;
       document.getElementById("status-indicador").style.background = cores[estado];
       document.getElementById("user-avatar").src = myPhoto;
+
+      // Registar utilizador online
+      db.ref("utilizadores/" + myName).set({
+        nome: myName, estado: estado, online: true
+      });
+
       const tela = document.getElementById("tela-login");
       tela.style.opacity = "0";
       tela.style.transform = "scale(1.1)";
       setTimeout(() => tela.style.display = "none", 500);
     };
 
+    // Iniciar conversa com amigo
+    function iniciarConversa() {
+      const amigo = document.getElementById("input-pesquisa").value.trim();
+      if (!amigo) { alert("Escreve o nome do amigo!"); return; }
+      if (amigo === myName) { alert("Não podes conversar contigo mesmo! 😄"); return; }
+
+      const nomes = [myName, amigo].sort();
+      salaActual = "sala-" + nomes[0] + "-" + nomes[1];
+
+      document.getElementById("display-nome").innerText = "💬 " + amigo;
+      document.getElementById("input-pesquisa").value = "";
+      document.getElementById("mensagens").innerHTML = "";
+
+      // Remover listener anterior
+      if (salaListener) {
+        db.ref(salaListener).off();
+      }
+      salaListener = salaActual;
+
+      // Carregar mensagens da sala
+      db.ref(salaActual).limitToLast(50).on("child_added", (snap) => {
+        carregarMensagem(snap);
+      });
+
+      db.ref(salaActual).on("child_removed", (snap) => {
+        const el = document.getElementById("msg-" + snap.key);
+        if (el) el.remove();
+      });
+    }
+
+    // Carregar mensagem
+    function carregarMensagem(snap) {
+      const data = snap.val();
+      const area = document.getElementById("mensagens");
+      const isMe = data.senderId === myId;
+
+      if (!isMe) db.ref(salaActual + "/" + snap.key).update({ lido: true });
+
+      const div = document.createElement("div");
+      div.className = "msg " + (isMe ? "sent" : "received");
+      div.id = "msg-" + snap.key;
+
+      let ticks = "";
+      if (isMe) {
+        if (data.lido) ticks = `<span class="tick lido">✓✓</span>`;
+        else if (data.entregue) ticks = `<span class="tick entregue">✓✓</span>`;
+        else ticks = `<span class="tick">✓</span>`;
+      }
+
+      div.innerHTML = `
+        <small style="display:block; font-size:10px; font-weight:bold; color:var(--secondary); margin-bottom:2px">
+          ${isMe ? "Você" : data.nome}
+        </small>
+        ${data.texto}
+        <span class="msg-info">
+          ${new Date(data.timestamp).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}
+          ${ticks}
+        </span>
+      `;
+
+      let pressTimer;
+      const iniciar = (e) => {
+        pressTimer = setTimeout(() => abrirMenu(e, div, snap, isMe), 600);
+      };
+      const cancelar = () => clearTimeout(pressTimer);
+      div.addEventListener("mousedown", iniciar);
+      div.addEventListener("mouseup", cancelar);
+      div.addEventListener("touchstart", iniciar);
+      div.addEventListener("touchend", cancelar);
+      div.addEventListener("touchmove", cancelar);
+
+      area.appendChild(div);
+      area.scrollTop = area.scrollHeight;
+    }
+
+    // Enviar
     function enviar() {
+      if (!salaActual) { alert("Procura um amigo primeiro!"); return; }
       const input = document.getElementById("campo-texto");
       const texto = input.value.trim();
       if (!texto) return;
-      db.ref("mensagens").push({
+      db.ref(salaActual).push({
         senderId: myId, nome: myName,
         texto: texto, timestamp: Date.now(),
         entregue: true, lido: false
@@ -333,7 +429,9 @@
       if (e.key === "Enter") enviar();
     };
 
+    // A escrever
     document.getElementById("campo-texto").oninput = () => {
+      if (!salaActual) return;
       db.ref("digitando/" + myId).set({ nome: myName });
       clearTimeout(typingTimer);
       typingTimer = setTimeout(() => {
@@ -352,6 +450,7 @@
       else indicador.innerText = "Vários utilizadores estão a escrever...";
     });
 
+    // Menu
     let msgSelecionada = null;
     let textoSelecionado = "";
     const menu = document.getElementById("menu-opcoes");
@@ -392,71 +491,12 @@
 
     document.getElementById("opcao-apagar").onclick = () => {
       if (confirm("Apagar esta mensagem para todos?")) {
-        db.ref("mensagens/" + msgSelecionada.snap.key).remove();
+        db.ref(salaActual + "/" + msgSelecionada.snap.key).remove();
       }
       fecharMenu();
     };
 
-    db.ref("mensagens").limitToLast(50).on("child_added", (snap) => {
-      const data = snap.val();
-      const area = document.getElementById("mensagens");
-      const isMe = data.senderId === myId;
-
-      if (!isMe) db.ref("mensagens/" + snap.key).update({ lido: true });
-
-      const div = document.createElement("div");
-      div.className = "msg " + (isMe ? "sent" : "received");
-      div.id = "msg-" + snap.key;
-
-      let ticks = "";
-      if (isMe) {
-        if (data.lido) ticks = `<span class="tick lido">✓✓</span>`;
-        else if (data.entregue) ticks = `<span class="tick entregue">✓✓</span>`;
-        else ticks = `<span class="tick">✓</span>`;
-      }
-
-      div.innerHTML = `
-        <small style="display:block; font-size:10px; font-weight:bold; color:var(--secondary); margin-bottom:2px">
-          ${isMe ? "Você" : data.nome}
-        </small>
-        ${data.texto}
-        <span class="msg-info">
-          ${new Date(data.timestamp).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}
-          ${ticks}
-        </span>
-      `;
-
-      let pressTimer;
-      const iniciar = (e) => {
-        pressTimer = setTimeout(() => abrirMenu(e, div, snap, isMe), 600);
-      };
-      const cancelar = () => clearTimeout(pressTimer);
-
-      div.addEventListener("mousedown", iniciar);
-      div.addEventListener("mouseup", cancelar);
-      div.addEventListener("touchstart", iniciar);
-      div.addEventListener("touchend", cancelar);
-      div.addEventListener("touchmove", cancelar);
-
-      area.appendChild(div);
-      area.scrollTop = area.scrollHeight;
-    });
-
-    db.ref("mensagens").on("child_changed", (snap) => {
-      const data = snap.val();
-      const msgDiv = document.getElementById("msg-" + snap.key);
-      if (!msgDiv || data.senderId !== myId) return;
-      const tickEl = msgDiv.querySelector(".tick");
-      if (!tickEl) return;
-      if (data.lido) { tickEl.className = "tick lido"; tickEl.innerText = "✓✓"; }
-      else if (data.entregue) { tickEl.className = "tick entregue"; tickEl.innerText = "✓✓"; }
-    });
-
-    db.ref("mensagens").on("child_removed", (snap) => {
-      const el = document.getElementById("msg-" + snap.key);
-      if (el) el.remove();
-    });
-
+    // Vídeo
     function ativarVideo() {
       const area = document.getElementById("area-video");
       area.style.display = area.style.display === "none" ? "flex" : "none";
