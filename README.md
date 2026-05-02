@@ -319,6 +319,19 @@
         });
       }
     }
+    const campoTexto = document.getElementById("campo-texto");
+
+campoTexto.addEventListener("focus", () => {
+  // Pequeno delay para esperar o teclado subir
+  setTimeout(() => {
+    // Faz o campo de texto ficar visível na tela
+    campoTexto.scrollIntoView({ behavior: "smooth", block: "center" });
+    
+    // Garante que o chat role para a última mensagem
+    const areaMsgs = document.getElementById("mensagens");
+    areaMsgs.scrollTop = areaMsgs.scrollHeight;
+  }, 300);
+});
   </script>
 </body>
 </html>
