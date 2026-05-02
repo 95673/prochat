@@ -217,6 +217,7 @@
       <input type="file" id="input-foto" hidden accept="image/*">
       <h3>ProChat</h3>
       <input type="text" id="input-nome" placeholder="O teu nome..." maxlength="15">
+<input type="text" id="input-sala" placeholder="Nome da sala... ex: sala-dino" maxlength="20" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:8px; font-size:15px;">
       <select id="select-estado">
         <option value="Online">🟢 Online</option>
         <option value="Ocupado">🟡 Ocupado</option>
