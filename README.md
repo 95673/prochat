@@ -193,7 +193,7 @@
   <div id="tela-login">
     <div class="card-login">
       <div class="avatar-wrapper" style="display:inline-block">
-        <img id="preview-foto" src="https://i.pravatar.cc/150" title="Clique para mudar foto">
+        <img id="preview-foto" src="https://ui-avatars.com/api/?name=?&background=075e54&color=fff&size=150" title="Clique para adicionar foto">
       </div>
       <input type="file" id="input-foto" hidden accept="image/*">
       <h3>ProChat</h3>
