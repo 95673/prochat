@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,14 +11,15 @@
       --accent: #25d366;
       --bg-light: #efe7de;
     }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body, html {
-  margin: 0; height: 100%;
-  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-  background: #d1d7db;
-}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* LOGIN */
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #d1d7db;
+      overflow: hidden;
+    }
+
     #tela-login {
       position: fixed; inset: 0;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -61,21 +61,20 @@
       font-weight: bold; font-size: 16px; cursor: pointer;
     }
 
-    /* APP */
     #app-container {
-  display: flex; flex-direction: column;
-  height: 100dvh;
-  max-width: 500px;
-  margin: 0 auto;
-  background: var(--bg-light);
-  overflow: hidden;
-}
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex; flex-direction: column;
+      max-width: 500px; margin: 0 auto;
+      background: var(--bg-light);
+    }
+
     header {
       background: rgba(7,94,84,0.97);
-      backdrop-filter: blur(10px);
       color: white; padding: 12px 18px;
       display: flex; align-items: center; gap: 12px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      flex-shrink: 0;
     }
     .avatar-wrapper { position: relative; }
     #user-avatar {
@@ -89,19 +88,22 @@
       background: var(--accent);
     }
 
-    /* MENSAGENS */
     #mensagens {
-      flex: 1; overflow-y: auto; padding: 15px;
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
       background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
       display: flex; flex-direction: column; gap: 6px;
       scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
     }
+
     .msg {
       max-width: 85%; padding: 8px 12px;
       border-radius: 12px; font-size: 15px;
       box-shadow: 0 1px 2px rgba(0,0,0,0.15);
       animation: popIn 0.3s ease-out;
-      position: relative; word-wrap: break-word;
+      word-wrap: break-word;
     }
     @keyframes popIn {
       from { transform: scale(0.8); opacity: 0; }
@@ -124,28 +126,26 @@
     .tick.entregue { color: #4fc3f7; }
     .tick.lido { color: var(--accent); }
 
-    /* INDICADOR A ESCREVER */
     #a-escrever {
       padding: 5px 20px; font-size: 13px;
       color: var(--secondary); font-style: italic;
-      min-height: 24px;
+      min-height: 24px; flex-shrink: 0;
     }
 
-    /* VÍDEO */
     #area-video {
       display: none; background: #000;
       height: 180px; padding: 10px;
-      justify-content: center;
+      justify-content: center; flex-shrink: 0;
     }
     #v-local {
       height: 100%; border-radius: 12px;
       border: 2px solid var(--accent);
     }
 
-    /* FOOTER */
     footer {
       background: #f0f2f5; padding: 10px 15px;
       display: flex; align-items: center; gap: 8px;
+      flex-shrink: 0;
     }
     .input-wrapper {
       flex: 1; background: white;
@@ -161,86 +161,28 @@
       border: none; background: var(--secondary);
       color: white; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px; transition: 0.2s;
+      font-size: 18px; transition: 0.2s; flex-shrink: 0;
     }
     .btn-action:active { transform: scale(0.85); }
 
     .signature-watermark {
-      position: absolute; bottom: 70px; left: 50%;
-      transform: translateX(-50%);
-      font-size: 11px; color: rgba(0,0,0,0.08);
-      font-weight: bold; pointer-events: none;
-      letter-spacing: 3px;
+      text-align: center; font-size: 11px;
+      color: rgba(0,0,0,0.08); font-weight: bold;
+      pointer-events: none; letter-spacing: 3px;
+      padding: 2px; flex-shrink: 0;
     }
-  .menu-item {
-  padding: 14px 20px;
-  font-size: 15px;
-  cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background 0.2s;
-}
-.menu-item:hover { background: #f5f5f5; }
-.menu-item:last-child { border-bottom: none; }
-#overlay-menu {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-}
-* {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
-#app-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  background: var(--bg-light);
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-html {
-  height: -webkit-fill-available;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-  background: #d1d7db;
-  overflow: hidden;
-}
-
-#mensagens {
-  flex: 1;
-  overflow-y: auto;
-  padding: 15px;
-  background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
-footer {
-  background: #f0f2f5;
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
+    .menu-item {
+      padding: 14px 20px; font-size: 15px;
+      cursor: pointer; border-bottom: 1px solid #f0f0f0;
+      transition: background 0.2s;
+    }
+    .menu-item:hover { background: #f5f5f5; }
+    .menu-item:last-child { border-bottom: none; }
+    #overlay-menu {
+      display: none; position: fixed;
+      inset: 0; z-index: 9998;
+    }
   </style>
 </head>
 <body>
@@ -294,28 +236,19 @@ footer {
       <button class="btn-action" id="btn-enviar">➤</button>
     </footer>
   </div>
-  <!-- MENU DE OPÇÕES -->
-<div id="menu-opcoes" style="
-  display:none;
-  position:fixed;
-  background:white;
-  border-radius:12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  z-index:9999;
-  overflow:hidden;
-  min-width:180px;
-">
-  <div class="menu-item" id="opcao-copiar">📋 Copiar</div>
-  <div class="menu-item" id="opcao-reencaminhar">↪️ Reencaminhar</div>
-  <div class="menu-item" id="opcao-apagar" style="color:red">🗑️ Apagar</div>
-</div>
+
+  <!-- MENU -->
+  <div id="menu-opcoes" style="display:none; position:fixed; background:white; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.2); z-index:9999; overflow:hidden; min-width:180px;">
+    <div class="menu-item" id="opcao-copiar">📋 Copiar</div>
+    <div class="menu-item" id="opcao-reencaminhar">↪️ Reencaminhar</div>
+    <div class="menu-item" id="opcao-apagar" style="color:red">🗑️ Apagar</div>
+  </div>
   <div id="overlay-menu"></div>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
-    // Firebase
     firebase.initializeApp({
       databaseURL: "https://meu-chat-b887c-default-rtdb.firebaseio.com/"
     });
@@ -324,8 +257,8 @@ footer {
     const myId = Math.random().toString(36).substring(7);
     let myName = "";
     let myPhoto = "https://ui-avatars.com/api/?name=?&background=075e54&color=fff&size=150";
+    let typingTimer;
 
-    // Foto de perfil
     document.getElementById("preview-foto").onclick = () =>
       document.getElementById("input-foto").click();
 
@@ -338,7 +271,6 @@ footer {
       reader.readAsDataURL(e.target.files[0]);
     };
 
-    // Cor do anel conforme estado
     document.getElementById("select-estado").onchange = function() {
       const cores = { Online: "#25d366", Ocupado: "#f0c000", Ausente: "#e74c3c" };
       const foto = document.getElementById("preview-foto");
@@ -346,51 +278,39 @@ footer {
       foto.style.boxShadow = `0 0 10px 3px ${cores[this.value]}`;
     };
 
-    // Login
     document.getElementById("btn-entrar").onclick = () => {
       myName = document.getElementById("input-nome").value.trim();
       if (!myName) return alert("Escreve o teu nome!");
-
       const estado = document.getElementById("select-estado").value;
       const cores = { Online: "#25d366", Ocupado: "#f0c000", Ausente: "#e74c3c" };
-
       document.getElementById("display-nome").innerText = myName;
       document.getElementById("display-estado").innerText = estado;
       document.getElementById("status-indicador").style.background = cores[estado];
       document.getElementById("user-avatar").src = myPhoto;
-
       const tela = document.getElementById("tela-login");
       tela.style.opacity = "0";
       tela.style.transform = "scale(1.1)";
       setTimeout(() => tela.style.display = "none", 500);
     };
 
-    // Enviar mensagem
     function enviar() {
       const input = document.getElementById("campo-texto");
       const texto = input.value.trim();
       if (!texto) return;
-
       db.ref("mensagens").push({
-        senderId: myId,
-        nome: myName,
-        texto: texto,
-        timestamp: Date.now(),
-        entregue: true,
-        lido: false
+        senderId: myId, nome: myName,
+        texto: texto, timestamp: Date.now(),
+        entregue: true, lido: false
       });
-
-      // Parar indicador de escrita
       db.ref("digitando/" + myId).remove();
       input.value = "";
     }
 
     document.getElementById("btn-enviar").onclick = enviar;
     document.getElementById("campo-texto").onkeypress = (e) => {
-      if (e.key === "Enter") { enviar(); return; }
+      if (e.key === "Enter") enviar();
     };
 
-    // Indicador "a escrever..."
     document.getElementById("campo-texto").oninput = () => {
       db.ref("digitando/" + myId).set({ nome: myName });
       clearTimeout(typingTimer);
@@ -399,50 +319,78 @@ footer {
       }, 2000);
     };
 
-    // Escutar quem está a escrever
     db.ref("digitando").on("value", (snap) => {
       const dados = snap.val();
       const indicador = document.getElementById("a-escrever");
       if (!dados) { indicador.innerText = ""; return; }
-
       const outros = Object.values(dados)
-        .filter(d => d.nome !== myName)
-        .map(d => d.nome);
-
-      if (outros.length === 0) {
-        indicador.innerText = "";
-      } else if (outros.length === 1) {
-        indicador.innerText = outros[0] + " está a escrever...";
-      } else {
-        indicador.innerText = "Vários utilizadores estão a escrever...";
-      }
+        .filter(d => d.nome !== myName).map(d => d.nome);
+      if (outros.length === 0) indicador.innerText = "";
+      else if (outros.length === 1) indicador.innerText = outros[0] + " está a escrever...";
+      else indicador.innerText = "Vários utilizadores estão a escrever...";
     });
 
-    // Receber mensagens
+    let msgSelecionada = null;
+    let textoSelecionado = "";
+    const menu = document.getElementById("menu-opcoes");
+    const overlay = document.getElementById("overlay-menu");
+
+    function abrirMenu(e, div, snap, isMe) {
+      msgSelecionada = { snap, div, isMe };
+      textoSelecionado = snap.val().texto;
+      document.getElementById("opcao-apagar").style.display = isMe ? "block" : "none";
+      const x = Math.min(e.clientX || e.touches[0].clientX, window.innerWidth - 200);
+      const y = Math.min(e.clientY || e.touches[0].clientY, window.innerHeight - 150);
+      menu.style.left = x + "px";
+      menu.style.top = y + "px";
+      menu.style.display = "block";
+      overlay.style.display = "block";
+    }
+
+    function fecharMenu() {
+      menu.style.display = "none";
+      overlay.style.display = "none";
+      msgSelecionada = null;
+    }
+
+    overlay.onclick = fecharMenu;
+
+    document.getElementById("opcao-copiar").onclick = () => {
+      navigator.clipboard.writeText(textoSelecionado)
+        .then(() => alert("✅ Mensagem copiada!"))
+        .catch(() => alert("Erro ao copiar"));
+      fecharMenu();
+    };
+
+    document.getElementById("opcao-reencaminhar").onclick = () => {
+      document.getElementById("campo-texto").value = textoSelecionado;
+      document.getElementById("campo-texto").focus();
+      fecharMenu();
+    };
+
+    document.getElementById("opcao-apagar").onclick = () => {
+      if (confirm("Apagar esta mensagem para todos?")) {
+        db.ref("mensagens/" + msgSelecionada.snap.key).remove();
+      }
+      fecharMenu();
+    };
+
     db.ref("mensagens").limitToLast(50).on("child_added", (snap) => {
       const data = snap.val();
       const area = document.getElementById("mensagens");
       const isMe = data.senderId === myId;
 
-      // Marcar como lido se for mensagem recebida
-      if (!isMe) {
-        db.ref("mensagens/" + snap.key).update({ lido: true });
-      }
+      if (!isMe) db.ref("mensagens/" + snap.key).update({ lido: true });
 
       const div = document.createElement("div");
       div.className = "msg " + (isMe ? "sent" : "received");
       div.id = "msg-" + snap.key;
 
-      // Ticks de entrega
       let ticks = "";
       if (isMe) {
-        if (data.lido) {
-          ticks = `<span class="tick lido">✓✓</span>`;
-        } else if (data.entregue) {
-          ticks = `<span class="tick entregue">✓✓</span>`;
-        } else {
-          ticks = `<span class="tick">✓</span>`;
-        }
+        if (data.lido) ticks = `<span class="tick lido">✓✓</span>`;
+        else if (data.entregue) ticks = `<span class="tick entregue">✓✓</span>`;
+        else ticks = `<span class="tick">✓</span>`;
       }
 
       div.innerHTML = `
@@ -456,14 +404,10 @@ footer {
         </span>
       `;
 
-      // Apagar ao pressionar e segurar
       let pressTimer;
       const iniciar = (e) => {
-  pressTimer = setTimeout(() => {
-    abrirMenu(e, div, snap, isMe);
-  }, 600);
-};
-   
+        pressTimer = setTimeout(() => abrirMenu(e, div, snap, isMe), 600);
+      };
       const cancelar = () => clearTimeout(pressTimer);
 
       div.addEventListener("mousedown", iniciar);
@@ -476,84 +420,21 @@ footer {
       area.scrollTop = area.scrollHeight;
     });
 
-    // Actualizar ticks quando mensagem é lida
     db.ref("mensagens").on("child_changed", (snap) => {
       const data = snap.val();
       const msgDiv = document.getElementById("msg-" + snap.key);
-      if (!msgDiv) return;
-      if (data.senderId !== myId) return;
-
+      if (!msgDiv || data.senderId !== myId) return;
       const tickEl = msgDiv.querySelector(".tick");
       if (!tickEl) return;
-
-      if (data.lido) {
-        tickEl.className = "tick lido";
-        tickEl.innerText = "✓✓";
-      } else if (data.entregue) {
-        tickEl.className = "tick entregue";
-        tickEl.innerText = "✓✓";
-      }
+      if (data.lido) { tickEl.className = "tick lido"; tickEl.innerText = "✓✓"; }
+      else if (data.entregue) { tickEl.className = "tick entregue"; tickEl.innerText = "✓✓"; }
     });
 
-    // Remover mensagem apagada
-  // Menu de opções
-let msgSelecionada = null;
-let textoSelecionado = "";
-const menu = document.getElementById("menu-opcoes");
-const overlay = document.getElementById("overlay-menu");
-
-function abrirMenu(e, div, snap, isMe) {
-  msgSelecionada = { snap, div, isMe };
-  textoSelecionado = snap.val().texto;
-
-  // Mostrar ou esconder opção apagar
-  document.getElementById("opcao-apagar").style.display = isMe ? "block" : "none";
-
-  // Posicionar menu
-  const x = Math.min(e.clientX || e.touches[0].clientX, window.innerWidth - 200);
-  const y = Math.min(e.clientY || e.touches[0].clientY, window.innerHeight - 150);
-  menu.style.left = x + "px";
-  menu.style.top = y + "px";
-  menu.style.display = "block";
-  overlay.style.display = "block";
-}
-
-function fecharMenu() {
-  menu.style.display = "none";
-  overlay.style.display = "none";
-  msgSelecionada = null;
-}
-
-overlay.onclick = fecharMenu;
-
-// Copiar
-document.getElementById("opcao-copiar").onclick = () => {
-  navigator.clipboard.writeText(textoSelecionado)
-    .then(() => alert("✅ Mensagem copiada!"))
-    .catch(() => alert("Erro ao copiar"));
-  fecharMenu();
-};
-
-// Reencaminhar
-document.getElementById("opcao-reencaminhar").onclick = () => {
-  document.getElementById("campo-texto").value = textoSelecionado;
-  document.getElementById("campo-texto").focus();
-  fecharMenu();
-};
-
-// Apagar
-document.getElementById("opcao-apagar").onclick = () => {
-  if (confirm("Apagar esta mensagem para todos?")) {
-    db.ref("mensagens/" + msgSelecionada.snap.key).remove();
-  }
-  fecharMenu();
-};
     db.ref("mensagens").on("child_removed", (snap) => {
       const el = document.getElementById("msg-" + snap.key);
       if (el) el.remove();
     });
 
-    // Vídeo
     function ativarVideo() {
       const area = document.getElementById("area-video");
       area.style.display = area.style.display === "none" ? "flex" : "none";
@@ -564,7 +445,6 @@ document.getElementById("opcao-apagar").onclick = () => {
       }
     }
 
-    // Voz
     function ativarVoz() {
       navigator.mediaDevices.getUserMedia({ video: false, audio: true })
         .then(() => alert("🎙️ Microfone activado!"))
