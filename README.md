@@ -73,12 +73,15 @@
 
     /* APP */
     #app-container {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      display: flex; flex-direction: column;
-      max-width: 500px; margin: auto;
-      background: var(--bg-light);
-    }
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--bg-light);
+  overflow: hidden;
+}
     header {
       background: rgba(7,94,84,0.97);
       color: white; padding: 12px 18px;
