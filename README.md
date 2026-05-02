@@ -267,8 +267,7 @@
 
     const myId = Math.random().toString(36).substring(7);
     let myName = "";
-    let myPhoto = "https://i.pravatar.cc/150";
-    let typingTimer;
+    let myPhoto = "https://ui-avatars.com/api/?name=?&background=075e54&color=fff&size=150";
 
     // Foto de perfil
     document.getElementById("preview-foto").onclick = () =>
