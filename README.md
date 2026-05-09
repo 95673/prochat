@@ -32,7 +32,18 @@
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    #app { position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; max-width: 500px; margin: 0 auto; background: var(--bg-app); overflow: hidden; }
+    #app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--bg-app);
+}
 
     /* LOGIN */
     #tela-login {
@@ -400,10 +411,14 @@ function toast(msg) {
 
 // ===== ALTURA =====
 function fixHeight() {
-  document.getElementById("app").style.height = window.innerHeight + "px";
+  const app = document.getElementById("app");
+  app.style.height = window.innerHeight + "px";
+  app.style.maxHeight = window.innerHeight + "px";
 }
 window.addEventListener("resize", fixHeight);
 window.addEventListener("load", fixHeight);
+document.addEventListener("DOMContentLoaded", fixHeight);
+setTimeout(fixHeight, 500);
 
 // ===== LOGIN COM GOOGLE =====
 document.getElementById("btn-google").onclick = () => {
